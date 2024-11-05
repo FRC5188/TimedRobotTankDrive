@@ -28,9 +28,9 @@ public class Robot extends TimedRobot {
 
   // TODO: Instantiate motor controller objects
   private final TalonFX _frontRightDriveMotor = new TalonFX(1);
-  private final TalonFX _frontLeftDriveMotor = new TalonFX(2);
-  private final TalonFX _backRightDriveMotor = new TalonFX(3);
-  private final TalonFX _backLeftDriveMotor = new TalonFX(4);
+  private final TalonFX _frontLeftDriveMotor = new TalonFX(6);
+  private final TalonFX _backRightDriveMotor = new TalonFX(11);
+  private final TalonFX _backLeftDriveMotor = new TalonFX(8);
 
   // TODO: Instantiate motor controller group objects
   private final MotorControllerGroup _rightDriveMotors = new MotorControllerGroup(_frontRightDriveMotor, _backRightDriveMotor);
@@ -111,9 +111,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     // TODO: Create a "speed" variable to store the left y-axis value from the controller
-    double speed = _controller.getRightX();
+    double rotation = _controller.getRightX();
     // TODO: Create a "rotation" variable to store the right x-axis value from the controller
-    double rotation = _controller.getLeftY();
+    double speed = _controller.getLeftY();
     // TODO: Call methods on the differential drive object to drive the robot
     _drive.arcadeDrive(speed, rotation);
   }
