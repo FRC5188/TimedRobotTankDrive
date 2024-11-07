@@ -4,7 +4,12 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,13 +25,26 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  // TODO: Instantiate motor controller objects
+  // TODO: Instantiate motor controller objects (Ender lore is gonna try this and it's probably gonna be bad but okay whatever lets go)
 
-  // TODO: Instantiate motor controller group objects
+  private final TalonFX _frontLeftDriveMotor = new TalonFX(1);
+  private final TalonFX _frontRightDriveMotor = new TalonFX(2);
+  private final TalonFX _backLeftDriveMotor = new TalonFX(3);
+  private final TalonFX _backRightDriveMotor = new TalonFX(4);
+  // Directly above: Change the "=TalonFX(#)" at the end to the nessecary motor ID's when or if nessecary. (Ender Lore)
 
-  // TODO: Instantiate Xbox controller object
+  // TODO: Instantiate motor controller group objects (Ender lore is gonna try this and it's probably gonna be bad but okay whatever lets go)
 
-  // TODO: Declare differential drive object
+  private final MotorControllerGroup _leftDriveMotors = new MotorControllerGroup (_frontLeftDriveMotor, _backLeftDriveMotor);
+  private final MotorControllerGroup _rightDriveMotors = new MotorControllerGroup (_frontRightDriveMotor, _backRightDriveMotor);
+
+  // TODO: Instantiate Xbox controller object (Ender lore is gonna try this and it's probably gonna be bad but okay whatever lets go)
+
+  private final XboxController controller = new XboxController(0);
+
+  // TODO: Declare differential drive object (Ender lore is gonna try this and it's probably gonna be bad but okay whatever lets go)
+
+  private DifferentialDrive _drive;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -41,6 +59,8 @@ public class Robot extends TimedRobot {
     // TODO: Call any necessary motor controller group methods
 
     // TODO: Instantiate differential drive object
+
+    _drive = new DifferentialDrive(_leftDriveMotors, _rightDriveMotors);
 
   }
 
@@ -94,10 +114,16 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     // TODO: Create a "speed" variable to store the left y-axis value from the controller
+    
+    double Speed=(controller.getLeftY());
+
     // TODO: Create a "rotation" variable to store the right x-axis value from the controller
 
-    // TODO: Call methods on the differential drive object to drive the robot
+    double Rotation=(controller.getRightX());
 
+    // TODO: Call methods on the differential drive object to drive the robot    
+    
+    _drive.arcadeDrive(Speed, Rotation);
   }
 
   /** This function is called once when the robot is disabled. */
@@ -124,3 +150,5 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {}
 }
+
+// (Ender Lore) we should make the robot self-aware and show it skibidi toilet
