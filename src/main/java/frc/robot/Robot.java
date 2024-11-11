@@ -28,9 +28,9 @@ public class Robot extends TimedRobot {
 
   // TODO: Instantiate motor controller objects
   private final TalonFX _frontRightDriveMotor = new TalonFX(1);
-  private final TalonFX _frontLeftDriveMotor = new TalonFX(2);
-  private final TalonFX _backRightDriveMotor = new TalonFX(3);
-  private final TalonFX _backLeftDriveMotor = new TalonFX(4);
+  private final TalonFX _frontLeftDriveMotor = new TalonFX(6);
+  private final TalonFX _backRightDriveMotor = new TalonFX(11);
+  private final TalonFX _backLeftDriveMotor = new TalonFX(8);
 
   // TODO: Instantiate motor controller group objects
   private final MotorControllerGroup _rightDriveMotors = new MotorControllerGroup(_frontRightDriveMotor, _backRightDriveMotor);
