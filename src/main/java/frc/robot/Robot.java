@@ -41,8 +41,8 @@ public class Robot extends TimedRobot {
   // TODO: Instantiate Xbox controller object
    private final XboxController _controller = new XboxController(0);
 
-  // TODO: Declare differential drive object
-  private DifferentialDrive _drive;
+  // TODO: Instantiate differential drive object
+  private DifferentialDrive _drive = new DifferentialDrive(_leftDriveMotors, _rightDriveMotors);
   
   /**
    * This function is run when the robot is first started up and should be used for any
