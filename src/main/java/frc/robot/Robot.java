@@ -4,7 +4,12 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,13 +26,24 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   // TODO: Instantiate motor controller objects
+  private final TalonFX _frontLeftDriveMotor = new TalonFX(1);
+  private final TalonFX _frontRightDriveMotor = new TalonFX(2);
+  private final TalonFX _backLeftDriveMotor = new TalonFX(3);
+  private final TalonFX _backRightDriveMotor = new TalonFX(4);
 
   // TODO: Instantiate motor controller group objects
 
+  private final MotorControllerGroup _leftDriveMotors = new MotorControllerGroup
+      (_frontLeftDriveMotor, _backLeftDriveMotor);
+  private final MotorControllerGroup _rightDriveMotors = new MotorControllerGroup
+      (_frontRightDriveMotor, _backRightDriveMotor);
+
   // TODO: Instantiate Xbox controller object
+  private final XboxController _controller = new XboxController(0);
 
   // TODO: Declare differential drive object
-
+  private DifferentialDrive _drive = new DifferentialDrive(_rightDriveMotors, _leftDriveMotors);
+  _drive.arcadeDrive(speed,rotation); 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -39,10 +55,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     // TODO: Call any necessary motor controller group methods
+    _rightDriveMotors.setInverted(true);
 
-    // TODO: Instantiate differential drive object
-
+ 
   }
+
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -94,8 +111,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     // TODO: Create a "speed" variable to store the left y-axis value from the controller
+    double speed = _controller.getLeftY();
     // TODO: Create a "rotation" variable to store the right x-axis value from the controller
-
+    double rotation = _controller.getRightX();
     // TODO: Call methods on the differential drive object to drive the robot
 
   }
