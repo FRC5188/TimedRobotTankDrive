@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -43,7 +42,6 @@ public class Robot extends TimedRobot {
 
   // TODO: Declare differential drive object
   private DifferentialDrive _drive = new DifferentialDrive(_rightDriveMotors, _leftDriveMotors);
-  _drive.arcadeDrive(speed,rotation); 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -115,7 +113,7 @@ public class Robot extends TimedRobot {
     // TODO: Create a "rotation" variable to store the right x-axis value from the controller
     double rotation = _controller.getRightX();
     // TODO: Call methods on the differential drive object to drive the robot
-
+    _drive.arcadeDrive(speed, rotation); 
   }
 
   /** This function is called once when the robot is disabled. */
