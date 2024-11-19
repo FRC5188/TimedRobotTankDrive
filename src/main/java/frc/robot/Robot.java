@@ -4,7 +4,13 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,11 +27,18 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   // TODO: Instantiate motor controller objects
-
+private final TalonFX _frontLeftDriveMotor = new TalonFX(6);
+private final TalonFX _backLeftDriveMotor = new TalonFX(8);
+private final TalonFX _frontRightDriveMotor = new TalonFX(1);
+private final TalonFX _backRightDriveMotor = new TalonFX(11);
   // TODO: Instantiate motor controller group objects
-
+private final MotorControllerGroup  _leftDriveMotors = new MotorControllerGroup
+(_frontLeftDriveMotor, _backLeftDriveMotor);
+private final MotorControllerGroup  rightDriveMotors = new MotorControllerGroup
+(_frontRightDriveMotor, _backRightDriveMotor);
+private DifferentialDrive _drive;
   // TODO: Instantiate Xbox controller object
-
+private final XboxController _controller = new XboxController(0);
   // TODO: Declare differential drive object
 
   /**
@@ -37,6 +50,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    rightDriveMotors.setInverted(true);
+
+    _drive = new DifferentialDrive(_leftDriveMotors, rightDriveMotors);
 
     // TODO: Call any necessary motor controller group methods
 
@@ -88,10 +104,14 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {}
+  
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    double speed = -_controller.getLeftY();
+double rotation = _controller.getRightX();
+  _drive.arcadeDrive(speed, rotation);
 
     // TODO: Create a "speed" variable to store the left y-axis value from the controller
     // TODO: Create a "rotation" variable to store the right x-axis value from the controller
